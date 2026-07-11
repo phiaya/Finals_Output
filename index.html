@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NOVA Clothing Co. - Modern minimalist streetwear for everyday style.">
+    <title>NOVA Clothing Co.</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="index.html" class="logo">
+                NOVA
+            </a>
+
+            <ul class="nav-menu">
+
+                <li><a href="index.html" class="active">Home</a></li>
+
+                <li><a href="products.html">Shop</a></li>
+
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+
+            <div class="nav-icons">
+
+                <button id="theme-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <span class="tag">
+                NEW COLLECTION 2026
+            </span>
+
+            <h1>
+                Minimal Fashion.<br>
+                Maximum Confidence.
+            </h1>
+
+            <p>
+                Discover timeless essentials designed for comfort,
+                quality, and effortless everyday style.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="products.html" class="btn">
+                    Shop Now
+                </a>
+
+                <a href="#featured" class="btn-outline">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= GREETING ================= -->
+
+    <section class="greeting">
+
+        <h2 id="greeting"></h2>
+
+    </section>
+
+    <!-- ================= FEATURED ================= -->
+
+    <section class="featured" id="featured">
+
+        <div class="section-title">
+
+            <span>Featured Collection</span>
+
+            <h2>Best Sellers</h2>
+
+        </div>
+
+        <div class="products">
+
+            <div class="card">
+
+                <img src="images/tshirt.jpg" alt="Oversized T-Shirt">
+
+                <div class="card-content">
+
+                    <h3>Oversized Tee</h3>
+
+                    <p>Premium Cotton</p>
+
+                    <h4>₱799</h4>
+
+                    <button class="cart-btn">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <img src="images/hoodie.jpg" alt="Vintage Hoodie">
+
+                <div class="card-content">
+
+                    <h3>Vintage Hoodie</h3>
+
+                    <p>Heavyweight Fabric</p>
+
+                    <h4>₱1,299</h4>
+
+                    <button class="cart-btn">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <img src="images/pants.jpg" alt="Cargo Pants">
+
+                <div class="card-content">
+
+                    <h3>Cargo Pants</h3>
+
+                    <p>Relaxed Fit</p>
+
+                    <h4>₱1,099</h4>
+
+                    <button class="cart-btn">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <img src="images/cap.jpg" alt="Baseball Cap">
+
+                <div class="card-content">
+
+                    <h3>Baseball Cap</h3>
+
+                    <p>Minimal Design</p>
+
+                    <h4>₱499</h4>
+
+                    <button class="cart-btn">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= WHY CHOOSE US ================= -->
+
+    <section class="features">
+
+        <div class="feature">
+
+            <i class="fa-solid fa-shirt"></i>
+
+            <h3>Premium Quality</h3>
+
+            <p>
+                Crafted with durable fabrics for everyday comfort.
+            </p>
+
+        </div>
+
+        <div class="feature">
+
+            <i class="fa-solid fa-truck-fast"></i>
+
+            <h3>Fast Delivery</h3>
+
+            <p>
+                Nationwide shipping across the Philippines.
+            </p>
+
+        </div>
+
+        <div class="feature">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+            <h3>Easy Payments</h3>
+
+            <p>
+                Pay with GCash, Maya, Cards, or Cash on Delivery.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ================= DATE & TIME ================= -->
+
+    <section class="time">
+
+        <h2>Current Date & Time</h2>
+
+        <p id="datetime"></p>
+
+    </section>
+
+    <!-- ================= NEWSLETTER ================= -->
+
+    <section class="newsletter">
+
+        <h2>Stay Updated</h2>
+
+        <p>
+            Be the first to know about our latest collections.
+        </p>
+
+        <form>
+
+            <input
+            type="email"
+            placeholder="Enter your email">
+
+            <button>
+                Subscribe
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+
+                <h2>NOVA</h2>
+
+                <p>
+                    Minimal clothing made for everyday confidence.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="products.html">Shop</a>
+                <a href="contact.html">Contact</a>
+
+            </div>
+
+            <div>
+
+                <h3>Follow Us</h3>
+
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="copyright">
+            © 2026 NOVA Clothing Co. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
