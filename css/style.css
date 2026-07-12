@@ -480,19 +480,23 @@ header{
 ========================================== */
 
 .products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,320px));
-    justify-content:center;
-    gap:30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
 }
 
 .card{
-    background:white;
-    border-radius:var(--radius);
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    transition:var(--transition);
-    position:relative;
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .card:hover{
