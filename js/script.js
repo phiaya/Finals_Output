@@ -28,188 +28,134 @@ const modalImg = document.getElementById("modal-image");
 const modalName = document.getElementById("modal-name");
 const modalDesc = document.getElementById("modal-description");
 const modalPrice = document.getElementById("modal-price");
-
 const closeModal = document.querySelector(".close");
 
-document.querySelectorAll(".card").forEach(card => {
+let currentProduct = {};
 
-    card.addEventListener("click", (e) => {
+if (modal) {
 
-        if (e.target.classList.contains("cart-btn")) return;
+    document.querySelectorAll(".card").forEach(card => {
 
-        const img = card.querySelector("img");
-        const name = card.querySelector("h3").innerText;
-        const desc = img.dataset.description;
-        const price = card.querySelector("h4").innerText;
+        card.addEventListener("click", (e) => {
 
-        modalImg.src = img.src;
-        modalName.innerText = name;
-        modalDesc.innerText = desc;
-        modalPrice.innerText = price;
+            if (e.target.classList.contains("cart-btn")) return;
 
-        modal.classList.add("active");
+            const img = card.querySelector("img");
+
+            currentProduct = {
+                name: card.querySelector("h3").innerText,
+                price: parseInt(card.querySelector("h4").innerText.replace(/[₱,]/g, "")),
+                image: img.src
+            };
+
+            modalImg.src = img.src;
+            modalName.innerText = currentProduct.name;
+            modalDesc.innerText = img.dataset.description || "";
+            modalPrice.innerText = card.querySelector("h4").innerText;
+
+            modal.classList.add("active");
+
+        });
 
     });
 
-});
-
-closeModal.onclick = () => {
-    modal.classList.remove("active");
-};
-
-window.onclick = (e) => {
-    if (e.target === modal) {
-        modal.classList.remove("active");
+    if (closeModal) {
+        closeModal.addEventListener("click", () => {
+            modal.classList.remove("active");
+        });
     }
-};
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
+    });
+
+}
 
 
 // ==========================================
 // SHOPPING CART
 // ==========================================
 
+let cart = [];
+
 const cartBtn = document.getElementById("cart-btn");
 const cartPanel = document.getElementById("cart-panel");
 const closeCart = document.getElementById("close-cart");
 
-cartBtn.addEventListener("click", () => {
-    cartPanel.classList.add("active");
-});
-
-closeCart.addEventListener("click", () => {
-    cartPanel.classList.remove("active");
-});
-
-// ==========================================
-// SHOPPING CART LOGIC
-// ==========================================
-
-let cart = [];
-
 const cartItems = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
 const cartCount = document.getElementById("cart-count");
+
 const modalCartBtn = document.getElementById("modal-cart");
 const clearCartBtn = document.getElementById("clear-cart");
+const checkoutBtn = document.getElementById("checkout-btn");
 
-let currentProduct = {};
 
+// Open Cart
 
-// ==========================================
-// SAVE CURRENT PRODUCT WHEN MODAL OPENS
-// ==========================================
+if (cartBtn && cartPanel) {
 
-document.querySelectorAll(".card").forEach(card => {
-
-    card.addEventListener("click",(e)=>{
-
-        if(e.target.classList.contains("cart-btn")) return;
-
-        currentProduct = {
-
-            name: card.querySelector("h3").innerText,
-
-            price: parseInt(
-                card.querySelector("h4").innerText.replace(/[₱,]/g,"")
-            ),
-
-            image: card.querySelector("img").src
-
-        };
-
+    cartBtn.addEventListener("click", () => {
+        cartPanel.classList.add("active");
     });
 
-});
+}
 
+// Close Cart
 
-// ==========================================
-// ADD TO CART FROM MODAL
-// ==========================================
+if (closeCart && cartPanel) {
 
-modalCartBtn.addEventListener("click",()=>{
+    closeCart.addEventListener("click", () => {
+        cartPanel.classList.remove("active");
+    });
 
-    const existing = cart.find(item=>item.name===currentProduct.name);
-
-    if(existing){
-
-        existing.quantity++;
-
-    }else{
-
-        cart.push({
-
-            ...currentProduct,
-
-            quantity:1
-
-        });
-
-    }
-
-    updateCart();
-
-    modal.classList.remove("active");
-
-});
+}
 
 
 // ==========================================
 // UPDATE CART
 // ==========================================
 
-function updateCart(){
+function updateCart() {
 
-    cartItems.innerHTML="";
+    if (!cartItems || !cartTotal || !cartCount) return;
 
-    let total=0;
+    cartItems.innerHTML = "";
 
-    let count=0;
+    let total = 0;
+    let count = 0;
 
-    if(cart.length===0){
+    if (cart.length === 0) {
 
-        cartItems.innerHTML="<p>Your cart is empty.</p>";
+        cartItems.innerHTML = "<p>Your cart is empty.</p>";
 
     }
 
-    cart.forEach((item,index)=>{
+    cart.forEach((item, index) => {
 
-        total+=item.price*item.quantity;
+        total += item.price * item.quantity;
+        count += item.quantity;
 
-        count+=item.quantity;
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <div>
+                    <strong>${item.name}</strong><br>
+                    ₱${item.price.toLocaleString()}<br>
+                    Qty: ${item.quantity}
+                </div>
 
-        cartItems.innerHTML+=`
-
-        <div class="cart-item">
-
-            <div>
-
-                <strong>${item.name}</strong>
-
-                <br>
-
-                ₱${item.price.toLocaleString()}
-
-                <br>
-
-                Qty: ${item.quantity}
-
+                <button onclick="removeItem(${index})">
+                    Remove
+                </button>
             </div>
-
-            <button onclick="removeItem(${index})">
-
-                Remove
-
-            </button>
-
-        </div>
-
         `;
 
     });
 
-    cartTotal.innerText="₱"+total.toLocaleString();
-
-    cartCount.innerText=count;
+    cartTotal.innerText = "₱" + total.toLocaleString();
+    cartCount.innerText = count;
 
 }
 
@@ -218,11 +164,86 @@ function updateCart(){
 // REMOVE ITEM
 // ==========================================
 
-function removeItem(index){
+function removeItem(index) {
 
-    cart.splice(index,1);
+    cart.splice(index, 1);
 
     updateCart();
+
+}
+
+window.removeItem = removeItem;
+
+
+// ==========================================
+// ADD TO CART (CARD BUTTON)
+// ==========================================
+
+document.querySelectorAll(".card .cart-btn").forEach(button => {
+
+    button.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        const card = button.closest(".card");
+
+        const product = {
+
+            name: card.querySelector("h3").innerText,
+
+            price: parseInt(
+                card.querySelector("h4").innerText.replace(/[₱,]/g, "")
+            ),
+
+            image: card.querySelector("img").src,
+
+            quantity: 1
+
+        };
+
+        const existing = cart.find(item => item.name === product.name);
+
+        if (existing) {
+            existing.quantity++;
+        } else {
+            cart.push(product);
+        }
+
+        updateCart();
+
+    });
+
+});
+
+
+// ==========================================
+// ADD TO CART (MODAL BUTTON)
+// ==========================================
+
+if (modalCartBtn) {
+
+    modalCartBtn.addEventListener("click", () => {
+
+        const existing = cart.find(item => item.name === currentProduct.name);
+
+        if (existing) {
+            existing.quantity++;
+        } else {
+
+            cart.push({
+                ...currentProduct,
+                quantity: 1
+            });
+
+        }
+
+        updateCart();
+
+        if (modal) {
+            modal.classList.remove("active");
+        }
+
+    });
 
 }
 
@@ -231,79 +252,28 @@ function removeItem(index){
 // CLEAR CART
 // ==========================================
 
-clearCartBtn.addEventListener("click",()=>{
+if (clearCartBtn) {
 
-    cart=[];
+    clearCartBtn.addEventListener("click", () => {
 
-    updateCart();
-
-});
-
-
-// ==========================================
-// ADD TO CART BUTTON ON PRODUCT CARD
-// ==========================================
-
-document.querySelectorAll(".card .cart-btn").forEach(button=>{
-
-    button.addEventListener("click",(e)=>{
-
-        e.stopPropagation();
-
-        const card=button.closest(".card");
-
-        const product={
-
-            name:card.querySelector("h3").innerText,
-
-            price:parseInt(
-
-                card.querySelector("h4").innerText.replace(/[₱,]/g,"")
-
-            ),
-
-            image:card.querySelector("img").src,
-
-            quantity:1
-
-        };
-
-        const existing=cart.find(item=>item.name===product.name);
-
-        if(existing){
-
-            existing.quantity++;
-
-        }else{
-
-            cart.push(product);
-
-        }
+        cart = [];
 
         updateCart();
 
     });
 
-});
+}
 
-
-// ==========================================
-// INITIALIZE CART
-// ==========================================
-
-updateCart();
 
 // ==========================================
 // CHECKOUT
 // ==========================================
 
-const checkoutBtn = document.getElementById("checkout-btn");
+if (checkoutBtn) {
 
-if(checkoutBtn){
+    checkoutBtn.addEventListener("click", () => {
 
-    checkoutBtn.addEventListener("click",()=>{
-
-        if(cart.length===0){
+        if (cart.length === 0) {
 
             alert("🛒 Your cart is empty!");
 
@@ -312,16 +282,58 @@ if(checkoutBtn){
         }
 
         alert(
-            "🎉 Thank you for your order!\n\n" +
-            "Your order has been placed successfully."
+            "🎉 Thank you for your order!\n\nYour order has been placed successfully."
         );
 
-        cart=[];
+        cart = [];
 
         updateCart();
 
-        cartPanel.classList.remove("active");
+        if (cartPanel) {
+            cartPanel.classList.remove("active");
+        }
 
     });
 
 }
+
+
+// ==========================================
+// GREETING
+// ==========================================
+
+const greeting = document.getElementById("greeting");
+
+if (greeting) {
+
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+        greeting.innerText = "Good Morning! ☀️";
+    } else if (hour < 18) {
+        greeting.innerText = "Good Afternoon! 🌤️";
+    } else {
+        greeting.innerText = "Good Evening! 🌙";
+    }
+
+}
+
+
+// ==========================================
+// DATE & TIME
+// ==========================================
+
+function updateDateTime() {
+
+    const dateTime = document.getElementById("datetime");
+
+    if (!dateTime) return;
+
+    const now = new Date();
+
+    dateTime.textContent = now.toLocaleString();
+
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
