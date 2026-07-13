@@ -338,3 +338,29 @@ function updateDateTime() {
 
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+
+const buttons = document.querySelectorAll(".filter-btn");
+const sections = document.querySelectorAll(".category-section");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const target = button.dataset.target;
+
+        sections.forEach(section => {
+
+            if (target === "all") {
+                section.style.display = "block";
+            } else {
+                section.style.display =
+                    section.id === target ? "block" : "none";
+            }
+
+        });
+
+    });
+});
