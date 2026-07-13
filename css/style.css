@@ -1268,3 +1268,8 @@ button,
 .checkout-btn:hover{
     background:#16a34a;
 }
+
+.filter-btn.active{
+    background:#b68d40;
+    color:white;
+}
